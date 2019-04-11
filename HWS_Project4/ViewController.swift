@@ -4,6 +4,7 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate {
     
     var webView: WKWebView!
+    var progressView: UIProgressView!
     
     override func loadView() {
         super.loadView()
@@ -21,17 +22,29 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
         
+        progressView = UIProgressView(progressViewStyle: .default)
+        progressView.sizeToFit()
+        let progressButton = UIBarButtonItem(customView: progressView)
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        toolbarItems = [progressButton, spacer, refresh]
+        navigationController?.isToolbarHidden = false
+        
     }
     
     @objc func openTapped() {
         
         let alertController = UIAlertController(title: "Open Website:", message: nil, preferredStyle: .actionSheet)
         let appleAction = UIAlertAction(title: "apple.com", style: .default, handler: openPage)
-        let hwsAction = UIAlertAction(title: "hackingwithswift.com", style: .default, handler: openPage)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(appleAction)
+        
+        let hwsAction = UIAlertAction(title: "hackingwithswift.com", style: .default, handler: openPage)
         alertController.addAction(hwsAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
+        
         alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         present(alertController, animated: true, completion: nil)
         
