@@ -1,3 +1,22 @@
+//block invalid URL
+    // modify checking host using array of websites
+
+
+//new toolbar with back and forward buttons
+    // replace open button
+    // plan the design of toolbar - should one
+    // implement those buttons
+
+
+
+//initial vc - is table view with all available websites
+    // add tableVC as initial
+    // display array of websites
+
+// other improvements...
+
+
+
 import UIKit
 import WebKit
 
